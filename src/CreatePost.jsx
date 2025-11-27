@@ -1,18 +1,32 @@
 import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 const CreatePost = () => {
-    const { loading, setLoading } = useState(false)
+    const navigate = useNavigate()
+    const url = import.meta.env.VITE_URL
+    const [loading, setLoading] = useState(false)
     const validationSchema = Yup.object({
         title: Yup.string()
             .required("Title is required"),
-        postMessage: Yup.string()
+        postText: Yup.string()
             .required("Post message is required"),
         username: Yup.string()
             .required("Name is required")
     })
-    const handleSubmit = () => {
+    const handleSubmit = (data) => {
         setLoading(true)
+        axios.post(`${url}/posts/create`, data).then((response) => {
+            console.log("Post created successfully: ", response)
+            navigate('/')
+
+        }).catch(err => {
+            console.log(err)
+        }).finally(() =>
+            setLoading(false)
+
+        )
     }
     if (loading) {
         return (
@@ -24,7 +38,7 @@ const CreatePost = () => {
             <Formik
                 initialValues={{
                     title: "",
-                    postMessage: "",
+                    postText: "",
                     username: ""
                 }}
                 validationSchema={validationSchema}
@@ -42,8 +56,8 @@ const CreatePost = () => {
                             </div>
                             <div>
                                 <label htmlFor="l2">Post:</label> <br />
-                                <Field name='postMessage' type="text" className="rounded-md border w-full p-2 md:w-100 " id="l2" /> <br />
-                                <ErrorMessage name='postMessage' component='div' className='text-red-500' />
+                                <Field name='postText' type="text" className="rounded-md border w-full p-2 md:w-100 " id="l2" /> <br />
+                                <ErrorMessage name='postText' component='div' className='text-red-500' />
                             </div>
                             <div>
                                 <label htmlFor="l3">User Name:</label> <br />
