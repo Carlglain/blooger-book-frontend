@@ -34,7 +34,7 @@ const CreatePost = () => {
         )
     }
     return (
-        <div>
+        <div className='mt-25'>
             <Formik
                 initialValues={{
                     title: "",
