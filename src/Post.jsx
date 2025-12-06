@@ -64,17 +64,17 @@ function Post() {
           <p className="bg-blue-500 text-white text-left h-20 pt-6">{data.username}</p>
 
         </div>
-        <div>
+        <div className="">
+          <h1 className="bg-gray-200 text-center">Comment Section</h1>
           {postComments.map((c, index) => (
-            <p key={index}> this is the comment: {c.commentBody} </p>
+            <p key={index}>comment {index + 1}: {c.commentBody} </p>
           ))
           }
         </div>
       </div>
-      <form onSubmit={handleSubmit} className="max-w-full w-170 max-h-full p-6 justify-center flex-col gap-2  flex items-center">
-        <h1>Comment Section</h1>
-        <textarea name="commentBody" onChange={handleChange} type="text-area" value={comment.commentBody} className="border border-gray-500 rounded-md" />
-        <button type="submit" className="rounded-md p-4 w-fit bg-teal-100">Comment</button>
+      <form onSubmit={handleSubmit} className="max-w-full w-170 max-h-full p-6 justify-center flex items-center">
+        <input name="commentBody" placeholder="Comment...." onChange={handleChange} type="text-area" value={comment.commentBody} className="border p-2 border-gray-500 rounded-md" />
+        <button type="submit" className="rounded-md p-2 w-fit bg-gray-500 border">Add Comment</button>
       </form>
 
     </div>);
